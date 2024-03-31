@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+    <div id="main-wrapper" class="show">
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+        <!--**********************************
+            Content body start
+        ***********************************-->
+          <form class="profile-form" action="/tailor/" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-xl-3 col-md-3 col-6">
+						<div class="card  blog-card">
+							<div class="card-body text-center">
+                                <img src="static/images/heart.png" alt="">
+                                <a href="/"><h4>Profile</h4></a>
+
+							</div>
+						</div>
+					</div>
+                    <div class="col-xl-3 col-md-3 col-6">
+						<div class="card  blog-card">
+							<div class="card-body text-center">
+                                <img src="static/images/books.png" alt="">
+                                <a href="task"><h4>Payments</h4></a>
+
+							</div>
+						</div>
+					</div>
+                    <div class="col-xl-3 col-md-3 col-6">
+						<div class="card blog-card ">
+							<div class="card-body text-center">
+								<img src="static/images/news.png" alt="">
+								<a href="add_blog"><h4>Products</h4></a>
+							</div>
+						</div>
+					</div>
+                    <div class="col-xl-3 col-md-3 col-6">
+                        <a href="gallery">
+						<div class="card  blog-card">
+							<div class="card-body text-center">
+								<img src="static/images/file.png" alt="">
+								<h4>Gallery</h4>
+							</div>
+						</div>
+                        </a>
+					</div>
+
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="clearfix">
+                            <div class="card card-bx profile-card author-profile m-b30">
+                                <div class="card-body">
+                                    <div class="p-5">
+                                        <div class="author-profile">
+                                            <div class="author-media">
+                                                <img id="profileImage"  src="{{profile.profile_picture.url}}" alt="" >
+                                                <div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
+                                                    <input type="file" id="imageUpload"  class="update-flie" name="profile_picture">
+                                                    <i class="fa fa-camera"></i>
+                                                </div>
+                                            </div>
+                                            <div class="author-info">
+                                                <h6 class="title">{{profile.name}}</h6>
+<!--                                                <span>Darji</span>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="info-list">
+                                        <ul>
+                                            <li><a href="page-error-404.html">Rating</a><span style="color: gold; font-size: 24px;">&#9733;&#9733;&#9733;&#9733;&#9734;</span></li>
+                                            {% if profile.availability %}
+                                            <li>Availability<span>Available</span></li>
+                                            {% else %}
+                                             <li>Availability<span>UnAvailable</span></li>
+                                            {% endif %}
+                                            <li><a href="page-error-404.html">Specialization</a><span>{{profile.specialization}}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="card profile-card card-bx m-b30">
+                            <div class="card-header">
+                                <h6 class="title">Account setup</h6>
+                            </div>
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" class="form-control" value="{{profile.name}}" name="name">
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Email address</label>
+                                            <input type="text" class="form-control" placeholder="demo@gmail.com" value="{{profile.email}}" name="email">
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Phone</label>
+                                            <input type="text" class="form-control" placeholder="123456789" value="{{profile.phone_number}}" disabled>
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Pincode</label>
+                                            <input type="text" class="form-control" placeholder="Pincode" value="{{profile.pincode}}" name="pincode">
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Gender</label>
+                                            <select class="default-select form-control" id="validationCustom05" name="gender">
+                                                {% if profile.gender %}
+                                                {% if profile.gender == "Male" %}
+                                                <option  value="Male" selected>Male</option>
+                                                <option value="Female">Female</option>
+                                                {% endif %}
+                                                {% if profile.gender == "Female" %}
+                                                <option  value="Male">Male</option>
+                                                <option data-display="Select" value="Female" selected>Female</option>
+                                                {% endif %}
+                                                {% else %}
+                                                <option  value="Male" selected>Male</option>
+                                                <option value="Female">Female</option>
+
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Experience Years</label>
+                                            <input class="form-control mb-xl-0 mb-3 bt-datepicker" type="number" name="experience_years" id="number" placeholder="3" value="{{profile.experience_years}}">
+
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Specialization</label>
+                                            <input type="text" class="form-control" placeholder="Kurti" name="specialization" value="{{profile.specialization}}">
+                                        </div>
+
+
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Availability</label>
+                                            <select class="default-select form-control" id="Availability" name="availability">
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Address</label>
+                                            <textarea class="form-control" placeholder="Address" name="address">{{profile.address}}</textarea>
+                                        </div>
+                                        <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Short Description</label>
+                                            <textarea class="form-control" placeholder="Description" name="about">{{profile.about}}</textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary" type="submit">UPDATE</button>
+
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+               </form>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer out-footer">
+            <div class="copyright">
+                <p>Copyright © Developed by <a href="https://dexignzone.com/" target="_blank">Max Developer</a>
+                    <span class="current-year">2024</span></p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $("#profileImage").click(function (e) {
+            $("#imageUpload").click();
+        });
+
+        function fasterPreview(uploader) {
+            if (uploader.files && uploader.files[0]) {
+                $('#profileImage').attr('src',
+                    window.URL.createObjectURL(uploader.files[0]));
+            }
+        }
+
+        $("#imageUpload").change(function () {
+            fasterPreview(this);
+        });
+    </script>
+{% endblock %}

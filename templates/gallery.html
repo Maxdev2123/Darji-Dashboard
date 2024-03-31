@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+    <div id="main-wrapper" class="show">
+
+
+        <div class="content-body" style="min-height: 680px;">
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <div class="col-xl-3 col-md-3 col-6">
+                        <div class="card  blog-card">
+                            <div class="card-body text-center">
+                                <img src="static/images/heart.png" alt="">
+                                <a href="/"><h4>Profile</h4></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3 col-6">
+                        <div class="card  blog-card">
+                            <div class="card-body text-center">
+                                <img src="static/images/books.png" alt="">
+                                <a href="task"><h4>Payments</h4></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3 col-6">
+                        <div class="card blog-card ">
+                            <div class="card-body text-center">
+                                <img src="static/images/news.png" alt="">
+                                <a href="add_blog"><h4>Products</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3 col-6">
+                        <a href="gallery">
+                            <div class="card  blog-card">
+                                <div class="card-body text-center">
+                                    <img src="static/images/file.png" alt="">
+                                    <h4>Gallery</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="heading mb-0">Products Images</h4>
+                                <div>
+                                    <button type="button" class="btn ds-2 btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="color:white;">
+                                        Add New
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body pb-1">
+                                <div id="lightgallery" class="row">
+                                    <a href="/static/tailor/static/images/img1.jpg" data-src="/static/tailor/static/images/img1.jpg" class=" lg-item col-lg-3 col-md-6 mb-4" data-lg-id="a3b37c8a-0592-4fa3-8590-2b6891ad17bd">
+                                        <img src="/static/tailor/static/images/img1.jpg" alt="" class="w-100 rounded">
+                                    </a>
+                                    <a href="/static/tailor/static/images/img2.jpg" data-src="/static/tailor/static/images/img2.jpg" class="lg-item col-lg-3 col-md-6 mb-4" data-lg-id="febc1e60-a5e4-4cdd-9f11-5b06feb28f36">
+                                        <img src="/static/tailor/static/images/img2.jpg" alt="" class="w-100 rounded">
+                                    </a>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel2">Add Photos</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/tailor/gallery" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <label class="form-label">Product SKU<span class="text-danger">*</span></label><br>
+                                    <select class="form-control default-select h-auto wide" name="product_sku">
+                                        <option value="AL">SKU demo 1</option>
+                                        <option value="WY">SKU demo 2</option>
+                                        <option value="WY">SKU demo 3</option>
+                                        <option value="WY">SKU demo 4</option>
+                                        <option value="WY">SKU demo 5</option>
+                                    </select><br>
+                                    <br>
+                                    <label class="form-label">Product
+                                        Image<span class="text-danger">*</span></label><br>
+                                    <img id="profileImage" src="" alt="" class=" rounded" style="width:100%;">
+                                    <input id="imageUpload" type="file" class="form-control d-none" id="imageUpload" accept=".png, .jpg, .jpeg" name="product_image"><br>
+                                    <label for="imageUpload" class="btn btn-sm ds-2 light ms-0" style="color:white;">Select
+                                        Image</label>
+
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $("#profileImage").click(function (e) {
+            $("#imageUpload").click();
+        });
+
+        function fasterPreview(uploader) {
+            if (uploader.files && uploader.files[0]) {
+                $('#profileImage').attr('src',
+                    window.URL.createObjectURL(uploader.files[0]));
+            }
+        }
+
+        $("#imageUpload").change(function () {
+            fasterPreview(this);
+        });
+    </script>
+
+{% endblock %}
